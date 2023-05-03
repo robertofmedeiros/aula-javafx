@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="451.0" prefWidth="633.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.senac.aula.javafx.controller.ClienteController">
+   <children>
+      <AnchorPane prefHeight="71.0" prefWidth="615.0">
+         <children>
+            <Label layoutX="14.0" layoutY="14.0" text="Nome" />
+            <TextField fx:id="nome" layoutX="14.0" layoutY="37.0" prefHeight="25.0" prefWidth="600.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="73.0" prefWidth="600.0">
+         <children>
+            <Label layoutX="14.0" layoutY="14.0" text="Documento" />
+            <TextField fx:id="documento" layoutX="14.0" layoutY="37.0" prefHeight="25.0" prefWidth="600.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="54.0" prefWidth="600.0">
+         <children>
+            <Button fx:id="btnOk" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#executarOk" text="OK" />
+            <Button fx:id="btnCancelar" layoutX="286.0" layoutY="14.0" mnemonicParsing="false" onAction="#executarFechar" text="Cancelar" />
+            <Button fx:id="btnExcluir" layoutX="567.0" layoutY="14.0" mnemonicParsing="false" onAction="#executarDeletar" text="Excluir" />
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="302.0" prefWidth="668.0">
+         <children>
+            <TableView fx:id="clientesList" layoutX="17.0" layoutY="14.0" prefHeight="252.0" prefWidth="600.0" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="14.0">
+               <columns>
+                  <TableColumn fx:id="colunaNome" prefWidth="75.0" text="Nome" />
+                  <TableColumn fx:id="colunaDocumento" prefWidth="284.0" text="Documento" />
+               </columns>
+            </TableView>
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>
