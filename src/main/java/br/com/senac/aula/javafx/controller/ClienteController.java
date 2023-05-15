@@ -4,14 +4,19 @@ import br.com.senac.aula.javafx.modelos.Cliente;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxmlView;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import javafx.scene.control.Alert.AlertType;
 
+import java.net.URL;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -53,6 +58,22 @@ public class ClienteController {
                     index = clientesList.getSelectionModel().getSelectedIndex();
 
                     System.out.println(clientesList.getSelectionModel().getSelectedIndex());
+                    try {
+
+                        FXMLLoader fxmlLoader = new FXMLLoader();
+                        fxmlLoader.setLocation(getClass().getResource("/cadastro.fxml"));
+                        Scene scene = new Scene(fxmlLoader.load());
+
+                        CadastroController cadastroController = fxmlLoader.getController();
+                        cadastroController.dadosCliente(cli, ClienteController.this);
+
+                        Stage stage = new Stage();
+                        stage.setTitle("Incluir");
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
@@ -98,6 +119,10 @@ public class ClienteController {
         if(index > -1) {
             clientesList.getItems().remove(index);
         }
+    }
+
+    public void salvarDados(Cliente cli){
+        clientesList.getItems().add(cli);
     }
 
 }
