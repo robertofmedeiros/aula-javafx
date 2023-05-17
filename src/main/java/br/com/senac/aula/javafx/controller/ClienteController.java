@@ -1,22 +1,22 @@
 package br.com.senac.aula.javafx.controller;
 
 import br.com.senac.aula.javafx.modelos.Cliente;
+import br.com.senac.aula.javafx.services.ClientesService;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxmlView;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import javafx.scene.control.Alert.AlertType;
 
-import java.net.URL;
+import java.sql.SQLException;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -43,10 +43,16 @@ public class ClienteController {
 
     private int index = -1;
 
+    private ClientesService clientesService = new ClientesService();
+
     @FXML
-    public void initialize() {
+    public void initialize() throws SQLException, ClassNotFoundException {
         colunaNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         colunaDocumento.setCellValueFactory(new PropertyValueFactory<>("documento"));
+
+        List<Cliente> clienteList = clientesService.carregarAlunos();
+
+        clientesList.getItems().addAll(clienteList);
 
         clientesList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent evt) {
@@ -67,10 +73,15 @@ public class ClienteController {
                         CadastroController cadastroController = fxmlLoader.getController();
                         cadastroController.dadosCliente(cli, ClienteController.this);
 
+                        clientesList.setDisable(true);
+
                         Stage stage = new Stage();
                         stage.setTitle("Incluir");
                         stage.setScene(scene);
-                        stage.show();
+                        stage.showAndWait();
+
+                        clientesList.setDisable(false);
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
